@@ -2,16 +2,16 @@ import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Set
 
 // Remember to rename these classes and interfaces!
 
-interface MyPluginSettings {
+interface GitLabWikiConverterSettings {
 	mySetting: string;
 }
 
-const DEFAULT_SETTINGS: MyPluginSettings = {
+const DEFAULT_SETTINGS: GitLabWikiConverterSettings = {
 	mySetting: 'default'
 }
 
-export default class MyPlugin extends Plugin {
-	settings: MyPluginSettings;
+export default class GitLabWikiConverterPlugin extends Plugin {
+	settings: GitLabWikiConverterSettings;
 
 	async onload() {
 		await this.loadSettings();
@@ -19,12 +19,24 @@ export default class MyPlugin extends Plugin {
 		// This creates an icon in the left ribbon.
 		const ribbonIconEl = this.addRibbonIcon('dice', 'Sample Plugin', (evt: MouseEvent) => {
 			// Called when the user clicks the icon.
-			new Notice('This is a notice!');
+			new Notice('This is a notice changed!');
 		});
 		// Perform additional things with the ribbon
 		ribbonIconEl.addClass('my-plugin-ribbon-class');
 
-		// This adds a status bar item to the bottom of the app. Does not work on mobile apps.
+		this.addCommand({
+			id: 'convert-vault',
+			name: 'Converts all files to Gitlab Wiki MD Format',
+			callback: () => {
+				const files = this.app.vault.getFiles();
+				
+				for (let i = 0; i < files.length; i++) {
+					this.app.fileManager.renameFile(files[i], files[i].path.replace(/\s+/g, "-"));
+				}
+			}
+		});
+
+		/*// This adds a status bar item to the bottom of the app. Does not work on mobile apps.
 		const statusBarItemEl = this.addStatusBarItem();
 		statusBarItemEl.setText('Status Bar Text');
 
@@ -76,6 +88,7 @@ export default class MyPlugin extends Plugin {
 
 		// When registering intervals, this function will automatically clear the interval when the plugin is disabled.
 		this.registerInterval(window.setInterval(() => console.log('setInterval'), 5 * 60 * 1000));
+		*/
 	}
 
 	onunload() {
@@ -108,9 +121,9 @@ class SampleModal extends Modal {
 }
 
 class SampleSettingTab extends PluginSettingTab {
-	plugin: MyPlugin;
+	plugin: GitLabWikiConverterPlugin;
 
-	constructor(app: App, plugin: MyPlugin) {
+	constructor(app: App, plugin: GitLabWikiConverterPlugin) {
 		super(app, plugin);
 		this.plugin = plugin;
 	}
