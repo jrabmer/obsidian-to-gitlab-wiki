@@ -1,4 +1,5 @@
 import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
+import { convertVault } from './converter'
 
 // Remember to rename these classes and interfaces!
 
@@ -28,11 +29,7 @@ export default class GitLabWikiConverterPlugin extends Plugin {
 			id: 'convert-vault',
 			name: 'Converts all files to Gitlab Wiki MD Format',
 			callback: () => {
-				const files = this.app.vault.getFiles();
-				
-				for (let i = 0; i < files.length; i++) {
-					this.app.fileManager.renameFile(files[i], files[i].path.replace(/\s+/g, "-"));
-				}
+				convertVault(this);
 			}
 		});
 
