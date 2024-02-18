@@ -4,11 +4,11 @@ import { convertVault } from './converter'
 // Remember to rename these classes and interfaces!
 
 interface GitLabWikiConverterSettings {
-	mySetting: string;
+	exportPath: string;
 }
 
 const DEFAULT_SETTINGS: GitLabWikiConverterSettings = {
-	mySetting: 'default'
+	exportPath: ''
 }
 
 export default class GitLabWikiConverterPlugin extends Plugin {
@@ -32,6 +32,9 @@ export default class GitLabWikiConverterPlugin extends Plugin {
 				convertVault(this);
 			}
 		});
+
+		// This adds a settings tab so the user can configure various aspects of the plugin
+		this.addSettingTab(new GitLabWikiConverterSettingTab(this.app, this));
 
 		/*// This adds a status bar item to the bottom of the app. Does not work on mobile apps.
 		const statusBarItemEl = this.addStatusBarItem();
@@ -117,7 +120,7 @@ class SampleModal extends Modal {
 	}
 }
 
-class SampleSettingTab extends PluginSettingTab {
+class GitLabWikiConverterSettingTab extends PluginSettingTab {
 	plugin: GitLabWikiConverterPlugin;
 
 	constructor(app: App, plugin: GitLabWikiConverterPlugin) {
@@ -131,13 +134,13 @@ class SampleSettingTab extends PluginSettingTab {
 		containerEl.empty();
 
 		new Setting(containerEl)
-			.setName('Setting #1')
-			.setDesc('It\'s a secret')
+			.setName('Location')
+			.setDesc('Specify the path to where you want to export converted vault')
 			.addText(text => text
-				.setPlaceholder('Enter your secret')
-				.setValue(this.plugin.settings.mySetting)
+				.setPlaceholder('Path')
+				.setValue(this.plugin.settings.exportPath)
 				.onChange(async (value) => {
-					this.plugin.settings.mySetting = value;
+					this.plugin.settings.exportPath = value;
 					await this.plugin.saveSettings();
 				}));
 	}

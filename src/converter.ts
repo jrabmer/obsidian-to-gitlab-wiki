@@ -1,4 +1,9 @@
 import GitLabWikiConverterPlugin from 'main';
+import { FileSystemAdapter, TAbstractFile, TFile, TFolder, Vault } from 'obsidian';
+import * as fs from 'fs/promises'
+import * as path from 'path';
+import { tmpdir } from 'os';
+import { dir } from 'console';
 
 /* -------------------- LINK DETECTOR -------------------- */
 
@@ -26,8 +31,9 @@ const removeFileExtensionsForMdFiles = (fileText: string, plugin: GitLabWikiConv
 
 export const convertVault = async (plugin: GitLabWikiConverterPlugin) => {
     const files = plugin.app.vault.getFiles();
-				
-    for (let file of files) {
+	
+    exportVaultToSpecifiedLocation(plugin);
+    /*for (let file of files) {
         await plugin.app.fileManager.renameFile(file, file.path.replace(/\s+/g, "-"));
     }
     
@@ -37,5 +43,29 @@ export const convertVault = async (plugin: GitLabWikiConverterPlugin) => {
         plugin.app.vault.process(file, (data: string) => {
             return removeFileExtensionsForMdFiles(data, plugin);
           })
-    }
+    }*/
 };
+
+const exportVaultToSpecifiedLocation = async (plugin: GitLabWikiConverterPlugin) => {
+    let adapter = plugin.app.vault.adapter;
+    if (adapter instanceof FileSystemAdapter) {
+        const vaultAbsolutePath = adapter.getBasePath();
+
+        Vault.recurseChildren(plugin.app.vault.getRoot(), async (file: TAbstractFile) => {
+            if(file instanceof TFolder && file.isRoot()){
+                await fs.mkdir(plugin.settings.exportPath);
+            } else {
+                if(file instanceof TFolder) {
+                    await fs.mkdir(plugin.settings.exportPath + file.path);
+                } else {
+                    await fs.copyFile(vaultAbsolutePath + "/" + file.path, plugin.settings.exportPath + file.path);
+                }
+            }
+        })
+
+        return;
+    }
+    
+    console.error("Could not get base path of Vault");
+    
+}
