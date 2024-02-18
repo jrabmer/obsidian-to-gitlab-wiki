@@ -129,6 +129,7 @@ class GitLabWikiConverterSettingTab extends PluginSettingTab {
 	}
 
 	display(): void {
+		// TODO: Add path validation or dir chooser
 		const {containerEl} = this;
 
 		containerEl.empty();

@@ -47,6 +47,7 @@ export const convertVault = async (plugin: GitLabWikiConverterPlugin) => {
 };
 
 const exportVaultToSpecifiedLocation = async (plugin: GitLabWikiConverterPlugin) => {
+    // TODO: Use universal path structure
     let adapter = plugin.app.vault.adapter;
     if (adapter instanceof FileSystemAdapter) {
         const vaultAbsolutePath = adapter.getBasePath();
