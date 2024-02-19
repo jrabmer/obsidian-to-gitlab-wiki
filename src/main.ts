@@ -142,7 +142,7 @@ class GitLabWikiConverterSettingTab extends PluginSettingTab {
 				.setPlaceholder('Path')
 				.setValue(this.plugin.settings.exportPath)
 				.onChange(async (value) => {
-					this.plugin.settings.exportPath = value.split(path.sep).join(path.posix.sep);;
+					this.plugin.settings.exportPath = value;
 					await this.plugin.saveSettings();
 				}));
 	}
