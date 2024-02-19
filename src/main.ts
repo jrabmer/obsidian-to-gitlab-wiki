@@ -2,8 +2,6 @@ import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Set
 import { convertVault } from './converter'
 import * as path from 'path';
 
-// Remember to rename these classes and interfaces!
-
 interface GitLabWikiConverterSettings {
 	exportPath: string;
 }
@@ -130,7 +128,6 @@ class GitLabWikiConverterSettingTab extends PluginSettingTab {
 	}
 
 	display(): void {
-		// TODO: Add path validation or dir chooser
 		const {containerEl} = this;
 
 		containerEl.empty();
@@ -145,5 +142,7 @@ class GitLabWikiConverterSettingTab extends PluginSettingTab {
 					this.plugin.settings.exportPath = value;
 					await this.plugin.saveSettings();
 				}));
+		
+		// TODO: Choose page to act as starting page
 	}
 }

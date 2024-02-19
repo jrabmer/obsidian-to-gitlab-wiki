@@ -7,6 +7,8 @@ import { removeFileExtensionsForMdFiles } from 'fileExtensionStripper'
 /* -------------------- CONVERTERS -------------------- */
 
 export const convertVault = async (plugin: GitLabWikiConverterPlugin) => {
+    // TODO: Rename chosen file from settings to home as this is starting point for gitlab
+    
     const files = plugin.app.vault.getFiles();
 
     for (let file of files) {
