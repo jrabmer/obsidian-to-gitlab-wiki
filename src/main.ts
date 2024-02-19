@@ -1,5 +1,6 @@
 import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
 import { convertVault } from './converter'
+import * as path from 'path';
 
 // Remember to rename these classes and interfaces!
 
@@ -141,7 +142,7 @@ class GitLabWikiConverterSettingTab extends PluginSettingTab {
 				.setPlaceholder('Path')
 				.setValue(this.plugin.settings.exportPath)
 				.onChange(async (value) => {
-					this.plugin.settings.exportPath = value;
+					this.plugin.settings.exportPath = value.split(path.sep).join(path.posix.sep);;
 					await this.plugin.saveSettings();
 				}));
 	}
