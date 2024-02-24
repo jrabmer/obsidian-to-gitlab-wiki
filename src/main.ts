@@ -1,14 +1,7 @@
 import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
 import { convertVault } from './converter'
 import * as path from 'path';
-
-interface GitLabWikiConverterSettings {
-	exportPath: string;
-}
-
-const DEFAULT_SETTINGS: GitLabWikiConverterSettings = {
-	exportPath: ''
-}
+import { GitLabWikiConverterSettings, GitLabWikiConverterSettingTab, DEFAULT_SETTINGS } from 'settings';
 
 export default class GitLabWikiConverterPlugin extends Plugin {
 	settings: GitLabWikiConverterSettings;
@@ -28,7 +21,9 @@ export default class GitLabWikiConverterPlugin extends Plugin {
 			id: 'convert-vault',
 			name: 'Converts all files to Gitlab Wiki MD Format',
 			callback: () => {
-				convertVault(this);
+				const files = this.app.vault.getMarkdownFiles();
+				files.forEach(file => console.log(file))
+				//convertVault(this);
 			}
 		});
 
@@ -109,40 +104,12 @@ class SampleModal extends Modal {
 	}
 
 	onOpen() {
-		const {contentEl} = this;
+		const { contentEl } = this;
 		contentEl.setText('Woah!');
 	}
 
 	onClose() {
-		const {contentEl} = this;
+		const { contentEl } = this;
 		contentEl.empty();
-	}
-}
-
-class GitLabWikiConverterSettingTab extends PluginSettingTab {
-	plugin: GitLabWikiConverterPlugin;
-
-	constructor(app: App, plugin: GitLabWikiConverterPlugin) {
-		super(app, plugin);
-		this.plugin = plugin;
-	}
-
-	display(): void {
-		const {containerEl} = this;
-
-		containerEl.empty();
-
-		new Setting(containerEl)
-			.setName('Location')
-			.setDesc('Specify the path to where you want to export converted vault')
-			.addText(text => text
-				.setPlaceholder('Path')
-				.setValue(this.plugin.settings.exportPath)
-				.onChange(async (value) => {
-					this.plugin.settings.exportPath = value;
-					await this.plugin.saveSettings();
-				}));
-		
-		// TODO: Choose page to act as starting page
 	}
 }
