@@ -41,22 +41,34 @@ const exportVaultToSpecifiedLocation = async (plugin: GitLabWikiConverterPlugin)
                 try {
                     await fs.mkdir(exportPath);    
                 } catch (error) {
-                    console.log("Export failed: Could not find or create export folder! Check path specified in settings.");
-                    new Notice("Export failed: Could not find or create export folder! Check path specified in settings.", 0);
-                    return;
+                    if(error.code != "EEXIST") {
+                        console.log("Export failed: Could not find or create export folder! Check path specified in settings.");
+                        new Notice("Export failed: Could not find or create export folder! Check path specified in settings.", 0);
+                        return;
+                    }
                 }  
             } else {
-                try {
-                    if (file instanceof TFolder) {
+                if (file instanceof TFolder) {
+                    try {
                         await fs.mkdir(path.posix.join(exportPath, file.path));
-                    } else {
+                    } catch (error) {
+                        if(error.code != "EEXIST") {
+                            console.log("Export failed: Could not create subfolder in export folder! Check that you have the corresponding permissions.");
+                            new Notice("Export failed: Could not create subfolder in export folder! Check that you have the corresponding permissions.", 0);
+                            return;
+                        }   
+                    }
+                } else {
+                    try {
                         await fs.copyFile(path.posix.join(vaultAbsolutePath, file.path), path.posix.join(exportPath, file.path));
-                    }   
-                } catch (error) {
-                    console.log("Export failed: Could not write to export folder! Check that path is correct and you have the corresponding permissions.");
-                    new Notice("Export failed: Could not write to export folder! Check that path is correct and you have the corresponding permissions.", 0);
-                    return;
-                }
+                    } catch (error) {
+                        console.log("Export failed: Could not write to export folder! Check that path is correct and you have the corresponding permissions.");
+                        new Notice("Export failed: Could not write to export folder! Check that path is correct and you have the corresponding permissions.", 0);
+                        return;
+                    }
+                    
+                }   
+                
             }
         })
 
