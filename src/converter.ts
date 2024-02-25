@@ -7,11 +7,18 @@ import { removeFileExtensionsForMdFiles } from 'fileExtensionStripper'
 /* -------------------- CONVERTERS -------------------- */
 
 export const convertVault = async (plugin: GitLabWikiConverterPlugin) => {
-    // TODO: Rename chosen file from settings to home as this is starting point for gitlab
     
     const files = plugin.app.vault.getFiles();
 
     for (let file of files) {
+
+        if(file.path.slice(0,-3).match(plugin.settings.homeFilePath)) {
+            let path: String[] = file.path.split("/");
+            path[path.length-1] = "home.md";
+            await plugin.app.fileManager.renameFile(file, path.join("/"));
+            continue;
+        }
+
         await plugin.app.fileManager.renameFile(file, file.path.replace(/\s+/g, "-"));
     }
 
@@ -26,6 +33,14 @@ export const convertVault = async (plugin: GitLabWikiConverterPlugin) => {
     exportVaultToSpecifiedLocation(plugin);
 
     for (let file of files) {
+
+        if(file.path.match("home.md")) {
+            let path: String[] = file.path.split("/");
+            path[path.length-1] = plugin.settings.homeFilePath + ".md";
+            await plugin.app.fileManager.renameFile(file, path.join("/"));
+            continue;
+        }
+
         await plugin.app.fileManager.renameFile(file, file.path.replace(/-/g, " "));
     }
 };

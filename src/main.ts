@@ -1,7 +1,7 @@
 import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
 import { convertVault } from './converter'
-import * as path from 'path';
 import { GitLabWikiConverterSettings, GitLabWikiConverterSettingTab, DEFAULT_SETTINGS } from 'settings';
+import { isHomePageSelectedAndValid } from 'utils';
 
 export default class GitLabWikiConverterPlugin extends Plugin {
 	settings: GitLabWikiConverterSettings;
@@ -21,9 +21,11 @@ export default class GitLabWikiConverterPlugin extends Plugin {
 			id: 'convert-vault',
 			name: 'Converts all files to Gitlab Wiki MD Format',
 			callback: () => {
-				const files = this.app.vault.getMarkdownFiles();
-				files.forEach(file => console.log(file))
-				//convertVault(this);
+				if(isHomePageSelectedAndValid(this)) {
+					convertVault(this);
+				} else {
+					new SampleModal(this.app).open();
+				}
 			}
 		});
 
