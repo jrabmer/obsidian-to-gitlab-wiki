@@ -1,9 +1,10 @@
+import { FileSuggest } from "fileSuggest";
 import GitLabWikiConverterPlugin from "main";
 import { PluginSettingTab, App, Setting } from "obsidian";
 
 export interface GitLabWikiConverterSettings {
 	exportPath: string;
-	homeFilePath: string;
+	homeFilePath: string; // Without .md extension for nicer display in settings
 }
 
 export const DEFAULT_SETTINGS: GitLabWikiConverterSettings = {
@@ -38,14 +39,13 @@ export class GitLabWikiConverterSettingTab extends PluginSettingTab {
 		new Setting(containerEl)
 			.setName('Home Page')
 			.setDesc('Specify the file, which will be your Gitlab homepage')
-			.addText(text => text
-				.setPlaceholder('Home')
-				.setValue(this.plugin.settings.homeFilePath)
-				.onChange(async (value) => {
-					this.plugin.settings.homeFilePath = value;
-					await this.plugin.saveSettings();
-				}));
-
-		// TODO: Choose page to act as starting page
+			.addText(text => {
+				new FileSuggest(this.app, text.inputEl);
+				text.setPlaceholder('Home')
+					.setValue(this.plugin.settings.homeFilePath)
+					.onChange(async (value) => {
+						this.plugin.settings.homeFilePath = value;
+						await this.plugin.saveSettings();
+				})});
 	}
 }
