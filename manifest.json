@@ -3,7 +3,7 @@
 	"name": "Gitlab Wiki Exporter",
 	"version": "1.1.0",
 	"minAppVersion": "0.15.0",
-	"description": "Exports your entire vault to a specified location and turns it into a Gitlab Wiki.",
+	"description": "Makes your entire vault Gitlab Wiki compatible and exports it to a specified location.",
 	"author": "Josef Rabmer",
 	"authorUrl": "https://github.com/jrabmer",
 	"fundingUrl": "https://ko-fi.com/jrabmer",
