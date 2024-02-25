@@ -23,7 +23,7 @@ Once the plugin is loaded, the command `Export Vault as Gitlab Wiki` can be used
 
 ## 📩 Contact
 
-If you have any issue or you have any suggestion, please feel free to reach me out directly to <jrabmer@outlook.com>.
+If you have any issue or you have any suggestions, please feel free to reach out to me directly at <jrabmer@outlook.com>.
 
 ## 🌄 Road Map
 

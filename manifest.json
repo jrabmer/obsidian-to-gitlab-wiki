@@ -1,7 +1,7 @@
 {
 	"id": "gitlab-wiki-export",
 	"name": "Gitlab Wiki Exporter",
-	"version": "1.1.0",
+	"version": "1.1.2",
 	"minAppVersion": "0.15.0",
 	"description": "Makes your entire vault Gitlab Wiki compatible and exports it to a specified location.",
 	"author": "Josef Rabmer",
