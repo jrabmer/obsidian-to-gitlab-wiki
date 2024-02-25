@@ -11,10 +11,10 @@ export const convertVault = async (plugin: GitLabWikiConverterPlugin) => {
 
     const files = plugin.app.vault.getFiles();
 
-    for (let file of files) {
+    for (const file of files) {
 
         if (file.path.slice(0, -3).match(plugin.settings.homeFilePath)) {
-            let path: String[] = file.path.split("/");
+            const path: string[] = file.path.split("/");
             path[path.length - 1] = "home.md";
             await plugin.app.fileManager.renameFile(file, path.join("/"));
             continue;
@@ -25,7 +25,7 @@ export const convertVault = async (plugin: GitLabWikiConverterPlugin) => {
 
     const markdownFiles = plugin.app.vault.getMarkdownFiles();
 
-    for (let file of markdownFiles) {
+    for (const file of markdownFiles) {
         await plugin.app.vault.process(file, (data: string) => {
             return removeFileExtensionsForMdFiles(data);
         })
@@ -33,10 +33,10 @@ export const convertVault = async (plugin: GitLabWikiConverterPlugin) => {
 
     exportVaultToSpecifiedLocation(plugin);
 
-    for (let file of files) {
+    for (const file of files) {
 
         if (file.path.match("home.md")) {
-            let path: String[] = file.path.split("/");
+            const path: string[] = file.path.split("/");
             path[path.length - 1] = plugin.settings.homeFilePath + ".md";
             await plugin.app.fileManager.renameFile(file, path.join("/"));
             continue;
@@ -49,7 +49,7 @@ export const convertVault = async (plugin: GitLabWikiConverterPlugin) => {
 };
 
 const exportVaultToSpecifiedLocation = async (plugin: GitLabWikiConverterPlugin) => {
-    let adapter = plugin.app.vault.adapter;
+    const adapter = plugin.app.vault.adapter;
     if (adapter instanceof FileSystemAdapter) {
         const vaultAbsolutePath = adapter.getBasePath();
         const exportPath = plugin.settings.exportPath.split(path.sep).join(path.posix.sep);
