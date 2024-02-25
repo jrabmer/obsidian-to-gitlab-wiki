@@ -7,7 +7,8 @@ import { removeFileExtensionsForMdFiles } from 'fileExtensionStripper'
 /* -------------------- CONVERTERS -------------------- */
 
 export const convertVault = async (plugin: GitLabWikiConverterPlugin) => {
-    
+    new Notice("Starting Vault conversion and export ...", 4000);
+
     const files = plugin.app.vault.getFiles();
 
     for (let file of files) {
@@ -43,6 +44,8 @@ export const convertVault = async (plugin: GitLabWikiConverterPlugin) => {
 
         await plugin.app.fileManager.renameFile(file, file.path.replace(/-/g, " "));
     }
+
+    new Notice("Vault conversion and export finished successfully!", 5000);
 };
 
 const exportVaultToSpecifiedLocation = async (plugin: GitLabWikiConverterPlugin) => {
