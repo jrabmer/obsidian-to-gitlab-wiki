@@ -46,6 +46,7 @@ export class GitLabWikiConverterSettingTab extends PluginSettingTab {
 					.onChange(async (value) => {
 						this.plugin.settings.homeFilePath = value;
 						await this.plugin.saveSettings();
-				})});
+					})
+			});
 	}
 }

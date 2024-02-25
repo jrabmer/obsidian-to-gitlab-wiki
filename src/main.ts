@@ -1,5 +1,5 @@
-import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
-import { convertVault } from './converter'
+import { Notice, Plugin } from 'obsidian';
+import { convertVault } from './converter';
 import { GitLabWikiConverterSettings, GitLabWikiConverterSettingTab, DEFAULT_SETTINGS } from 'settings';
 import { isHomePageSelectedAndValid } from 'utils';
 
@@ -13,7 +13,7 @@ export default class GitLabWikiConverterPlugin extends Plugin {
 			id: 'convert-vault',
 			name: 'Converts all files to Gitlab Wiki MD Format',
 			callback: () => {
-				if(isHomePageSelectedAndValid(this)) {
+				if (isHomePageSelectedAndValid(this)) {
 					convertVault(this);
 				} else {
 					new Notice("Export failed! Select a valid Gitlab home page in the settings before exporting vault.", 0);

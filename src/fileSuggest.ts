@@ -1,4 +1,4 @@
-import { App, AbstractInputSuggest, Command, FuzzySuggestModal, Notice, TAbstractFile, TFile } from "obsidian";
+import { AbstractInputSuggest, TFile } from "obsidian";
 import { trimFile } from "utils";
 
 
