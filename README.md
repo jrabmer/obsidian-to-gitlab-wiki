@@ -13,7 +13,7 @@ The plugin only renames the files temporarily and no permanent changes will be m
 
 ## 🔓 Prerequisites
 
-The plugin assumes that your vault does not use WikiLinks and relative Paths for link formats. This may be changed in the future. Until then make sure you set `Settings -> Files and links -> New Link format` to `Relative path to file` and disable `Use [[Wikilinks]]`. 
+The plugin assumes that your vault does not use WikiLinks but uses relative Paths for link formats. This may be changed in the future. Until then make sure you set `Settings -> Files and links -> New Link format` to `Relative path to file` and disable `Use [[Wikilinks]]`. 
 
 In case you have an existing vault with WikiLinks, I personally use the following [plugin](https://github.com/ozntel/obsidian-link-converter) by Ozan Tellioglu (with relative paths setting!).
 
