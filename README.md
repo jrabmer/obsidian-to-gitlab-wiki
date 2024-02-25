@@ -21,16 +21,16 @@ In case you have an existing vault with WikiLinks, I personally use the followin
 
 Once the plugin is loaded, the command `Export Vault as Gitlab Wiki` can be used to export the vault. Make sure to specify the export location and home page in the settings first!
 
-## 📩 Contact
-
-If you have any issue or you have any suggestions, please feel free to reach out to me directly at <jrabmer@outlook.com>.
-
 ## 🌄 Road Map
 
 - [ ] Fix line break issue on Gitlab
 - [ ] Use name with spaces instead of page slugs for links in files
 - [ ] Implement more GFM featues in the future
 - [ ] Add WikiLink support
+
+## 📩 Contact
+
+If you have any issue or you have any suggestions, please feel free to reach out to me directly at <jrabmer@outlook.com>.
 
 ## ☕ Support
 
