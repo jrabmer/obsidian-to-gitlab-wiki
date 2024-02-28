@@ -27,7 +27,7 @@ export class GitLabWikiConverterSettingTab extends PluginSettingTab {
 
 		new Setting(containerEl)
 			.setName('Location')
-			.setDesc('Specify the path to where you want to export converted vault')
+			.setDesc('Specify the path to where you want to export converted vault.')
 			.addText(text => text
 				.setPlaceholder('Path')
 				.setValue(this.plugin.settings.exportPath)
@@ -37,8 +37,8 @@ export class GitLabWikiConverterSettingTab extends PluginSettingTab {
 				}));
 
 		new Setting(containerEl)
-			.setName('Home Page')
-			.setDesc('Specify the file, which will be your Gitlab homepage')
+			.setName('Home page')
+			.setDesc('Specify the file, which will be your Gitlab homepage.')
 			.addText(text => {
 				new FileSuggest(this.app, text.inputEl);
 				text.setPlaceholder('Home')

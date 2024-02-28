@@ -11,7 +11,7 @@ export default class GitLabWikiConverterPlugin extends Plugin {
 
 		this.addCommand({
 			id: 'convert-vault',
-			name: 'Converts all files to Gitlab Wiki MD Format',
+			name: 'Convert all files to Gitlab Wiki MD Format',
 			callback: () => {
 				if (isHomePageSelectedAndValid(this)) {
 					convertVault(this);
