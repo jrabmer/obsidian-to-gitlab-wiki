@@ -1,10 +1,11 @@
 import { FileSuggest } from "fileSuggest";
 import GitLabWikiConverterPlugin from "main";
 import { PluginSettingTab, App, Setting, normalizePath } from "obsidian";
+import { normalize } from "path";
 
 export interface GitLabWikiConverterSettings {
 	exportPath: string;
-	homeFilePath: string; // Without .md extension for nicer display in settings
+	homeFilePath: string;
 }
 
 export const DEFAULT_SETTINGS: GitLabWikiConverterSettings = {
@@ -32,7 +33,7 @@ export class GitLabWikiConverterSettingTab extends PluginSettingTab {
 				.setPlaceholder('Path')
 				.setValue(this.plugin.settings.exportPath)
 				.onChange(async (value) => {
-					this.plugin.settings.exportPath = normalizePath(value);
+					this.plugin.settings.exportPath = normalize(value);
 					await this.plugin.saveSettings();
 				}));
 
