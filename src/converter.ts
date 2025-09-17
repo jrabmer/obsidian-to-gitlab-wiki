@@ -13,6 +13,7 @@ export const convertAndExportVault = async (plugin: GitLabWikiConverterPlugin) =
 
     for (const file of files) {
 
+        // TODO: Rename path to files and then rename file itself
         if (file.path.slice(0, -3).match(plugin.settings.homeFilePath)) {
             const path: string[] = file.path.split("/");
             path[path.length - 1] = "home.md";

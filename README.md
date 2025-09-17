@@ -25,7 +25,7 @@ Once the plugin is loaded, the command `Export Vault as Gitlab Wiki` can be used
 
 - [ ] Fix line break issue on Gitlab
 - [ ] Use name with spaces instead of page slugs for links in files
-- [ ] Implement more GFM featues in the future
+- [ ] Implement more GFM features in the future
 - [ ] Add WikiLink support
 
 ## 📩 Contact
