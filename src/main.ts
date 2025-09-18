@@ -14,7 +14,7 @@ export default class GitLabWikiConverterPlugin extends Plugin {
 			name: 'Export Vault as Gitlab Wiki',
 			callback: () => {
 				if (isHomePageSelectedAndValid(this)) {
-					convertAndExportVault(this);
+					convertAndExportVault(this.app.vault, this.app.fileManager, this.settings.homeFilePath, this.settings.exportPath);
 				} else {
 					new Notice("Export failed! Select a valid Gitlab home page in the settings before exporting vault.", 0);
 				}
