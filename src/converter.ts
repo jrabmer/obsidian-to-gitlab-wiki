@@ -1,4 +1,4 @@
-import { FileManager, FileSystemAdapter, Notice, TAbstractFile, TFile, TFolder, Vault } from 'obsidian';
+import { FileManager, FileSystemAdapter, Notice, TFile, TFolder, Vault } from 'obsidian';
 import * as fs from 'fs/promises';
 import { removeFileExtensionForMdFilesInLinks } from 'fileExtensionStripper';
 import * as path from 'path';
