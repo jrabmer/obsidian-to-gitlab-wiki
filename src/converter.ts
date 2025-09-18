@@ -1,6 +1,6 @@
 import { FileManager, FileSystemAdapter, Notice, TAbstractFile, TFile, TFolder, Vault } from 'obsidian';
 import * as fs from 'fs/promises';
-import { removeFileExtensionsForMdFiles } from 'fileExtensionStripper';
+import { removeFileExtensionForMdFilesInLinks } from 'fileExtensionStripper';
 import * as path from 'path';
 
 
@@ -46,7 +46,7 @@ export const convertAndExportVault = async (
     await Promise.all(
         markdownFiles.map(file =>
             vault.process(file, (data: string) => {
-                return removeFileExtensionsForMdFiles(data);
+                return removeFileExtensionForMdFilesInLinks(data);
             })
         )
     );

@@ -1,4 +1,4 @@
-export const removeFileExtensionsForMdFiles = (fileText: string): string => {
+export const removeFileExtensionForMdFilesInLinks = (fileText: string): string => {
     // --> Get All Markdown Links
     const markdownRegex = /\[(^$|.*?)\]\((.*?)\)/g;
     const markdownMatches = fileText.match(markdownRegex);
