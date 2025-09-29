@@ -81,8 +81,8 @@ const exportVaultToSpecifiedLocation = async (vault: Vault, rawExportPath: strin
             errorOnExist: false, // overwrite by default
             force: true,         // overwrite read-only files if needed
             filter: (srcPath) => {
-                // Skip .obsidian folder
-                return path.basename(srcPath) !== ".obsidian";
+                // Skip .obsidian/.git/... folders/files
+                return path.basename(srcPath).at(0) !== ".";
             },
         });
 
