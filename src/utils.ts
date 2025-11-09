@@ -13,3 +13,16 @@ export function isHomePageSelectedAndValid(plugin: GitLabWikiConverterPlugin): b
 		return false;
 	}
 }
+
+// Source - https://stackoverflow.com/a
+// Posted by Shamasis Bhattacharya, modified by community. See post 'Timeline' for change history
+// Retrieved 2025-11-09, License - CC BY-SA 3.0
+
+/**
+ * Checks whether a path starts with or contains a hidden file or a folder.
+ * @param {string} source - The path of the file that needs to be validated.
+ * returns {boolean} - `true` if the source is blacklisted and otherwise `false`.
+ */
+export function isUnixHiddenPath (path: string): boolean {
+    return (/(^|\/)\.[^\/\.]/g).test(path);
+};

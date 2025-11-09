@@ -2,6 +2,7 @@ import { FileManager, FileSystemAdapter, Notice, TFile, TFolder, Vault } from 'o
 import * as fs from 'fs/promises';
 import { removeFileExtensionForMdFilesInLinks } from 'fileExtensionStripper';
 import * as path from 'path';
+import { isUnixHiddenPath } from 'utils';
 
 
 /* -------------------- CONVERTERS -------------------- */
@@ -81,8 +82,8 @@ const exportVaultToSpecifiedLocation = async (vault: Vault, rawExportPath: strin
             errorOnExist: false, // overwrite by default
             force: true,         // overwrite read-only files if needed
             filter: (srcPath) => {
-                // Skip .obsidian folder
-                return path.basename(srcPath) !== ".obsidian";
+                // Skip . files like .obsidian or .git
+                return !isUnixHiddenPath(path.basename(srcPath));
             },
         });
 
